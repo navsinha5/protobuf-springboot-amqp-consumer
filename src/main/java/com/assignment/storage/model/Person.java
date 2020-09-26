@@ -1,5 +1,7 @@
 package com.assignment.storage.model;
 
+import com.assignment.storage.protobuf.PersonProtos;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +19,24 @@ public class Person {
     @Min(value = 0, message= "age can't be negative integer")
     @Max(value = 100, message = "age can't be greater than 100")
     private Integer age;
+
+    public Person(){};
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Person(PersonProtos.Person person){
+        this.id = person.getId();
+        this.name = person.getName();
+        this.dob = person.getDob();
+        this.salary = person.getSalary();
+        this.age = person.getAge();
+    }
 
     public String getName() {
         return name;

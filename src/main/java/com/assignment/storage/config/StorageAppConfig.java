@@ -9,10 +9,18 @@ import org.springframework.context.annotation.Configuration;
 public class StorageAppConfig {
 
     @Value("${storage.service.amqp.queue.xml}")
-    private String queue;
+    private String xmlQueue;
+
+    @Value("${storage.service.amqp.queue.csv}")
+    private String csvQueue;
 
     @Bean
-    public Queue getQueue(){
-        return new Queue(queue);
+    public Queue getXmlQueue(){
+        return new Queue(xmlQueue);
+    }
+
+    @Bean
+    public Queue getCsvQueue(){
+        return new Queue(csvQueue);
     }
 }
