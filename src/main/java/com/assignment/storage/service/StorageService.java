@@ -17,11 +17,15 @@ public class StorageService {
     @Value("${storage.service.file.base-path}")
     private String basePath;
 
-    public void storeAsXml(Person person){
+    public void storeAsXml(Person person) throws IOException {
         try {
-            Person oldPerson = readData(person.getId());
-            if(oldPerson != null){
-                person = mergePerson(oldPerson, person);
+            try {
+                Person oldPerson = readData(person.getId());
+                if (oldPerson != null) {
+                    person = mergePerson(oldPerson, person);
+                }
+            }catch (StorageException ex){
+                System.out.println("no previous data found: " + ex.getMessage() );
             }
 
             File csvFile = new File(person.getId() + ".csv");
@@ -31,15 +35,20 @@ public class StorageService {
 
             new XmlMapper().writeValue(new File(person.getId() + ".xml"), person);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error while storing data in xml: " + e.getMessage());
+            throw e;
         }
     }
 
-    public void storeAsCsv(Person person){
+    public void storeAsCsv(Person person) throws IOException {
         try{
-            Person oldPerson = readData(person.getId());
-            if(oldPerson != null){
-                person = mergePerson(oldPerson, person);
+            try {
+                Person oldPerson = readData(person.getId());
+                if (oldPerson != null) {
+                    person = mergePerson(oldPerson, person);
+                }
+            }catch (StorageException ex) {
+                System.out.println("no previous data found: " + ex.getMessage());
             }
 
             File xmlFile = new File(person.getId() + ".xml");
@@ -49,11 +58,13 @@ public class StorageService {
 
             CsvMapper mapper = new CsvMapper();
             CsvSchema schema = mapper.schemaFor(Person.class)
-                                    .withUseHeader(true);
+                                .withUseHeader(true);
+
             mapper.writer(schema)
                     .writeValue(new File(person.getId() + ".csv"), person);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error while saving csv file: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -90,7 +101,7 @@ public class StorageService {
         op.setName(np.getName().isEmpty() ? op.getName() : np.getName());
         op.setDob(np.getDob().isEmpty() ? op.getDob() : np.getDob() );
         op.setSalary(np.getSalary().isEmpty() ? op.getSalary() : np.getSalary());
-        op.setAge(np.getAge() == 0 ? op.getAge() : np.getAge());
+        op.setAge(np.getAge() <= 0 ? op.getAge() : np.getAge());
         return op;
     }
 

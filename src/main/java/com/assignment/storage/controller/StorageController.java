@@ -19,7 +19,7 @@ public class StorageController {
     StorageService storageService;
 
     @GetMapping("/person")
-    public Person getPerson(@RequestParam("name") String name) throws Exception {
-        return storageService.readData(name);
+    public Person getPerson(@RequestParam("id") String id) throws Exception {
+        return storageService.readData(id);
     }
 }
