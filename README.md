@@ -50,6 +50,7 @@ Content-Type: application/json
 # Known Issues
 - Error handing can be made more elegant
 - TLS can be applied between AMQP Broker and Producer
+- Ephemeral storage can be replaced with persistence storage
 
 
 # Related Resources
