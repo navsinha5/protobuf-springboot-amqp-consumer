@@ -1,5 +1,4 @@
 # Introduction
----
 This project is a part of three layer microservices design (gateway - amqp - storage). 
 This code base works as a 'storage' service.
 - TLS level encryption is applied within REST APIs.
@@ -7,14 +6,12 @@ This code base works as a 'storage' service.
 
 
 # Installation 
----
 Note:- Locally installed `docker-compose` desired
 
 Run: `sudo docker-compose up`
 
 
 # Test
----
 Note:- The endpoints are exposed on `https://`
 - Create
 ```
@@ -51,18 +48,15 @@ Content-Type: application/json
 
 
 # Known Issues
----
 - Error handing can be made more elegant
 - TLS can be applied between AMQP Broker and Producer
 
 
 # Related Resources
----
 - https://github.com/navsinha5/protobuf-springboot-amqp-consumer.git
 
 
 # References
----
 - https://developers.google.com/protocol-buffers/docs/javatutorial
 - https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html
 - https://www.baeldung.com/spring-amqp
