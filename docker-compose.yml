@@ -2,20 +2,20 @@ version: '3'
 
 services:
   amqp-service:
-    build: rabbitmq:3-management
+    image: rabbitmq:3-management
     ports:
     - 15672:15672
     - 5672:5672
 
   gateway-service:
-    build: gateway:2
+    image: gateway:2
     ports:
     - 8443:8443
     depends_on:
       - amqp-service
 
   storage-service:
-    build: storage:1
+    image: storage:1
     ports:
     - 7443:7443
     depends_on:
