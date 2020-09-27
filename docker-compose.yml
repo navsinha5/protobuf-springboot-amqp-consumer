@@ -8,14 +8,14 @@ services:
     - 5672:5672
 
   gateway-service:
-    image: gateway:2
+    image: navsinha5/gateway
     ports:
     - 8443:8443
     depends_on:
       - amqp-service
 
   storage-service:
-    image: storage:1
+    image: navsinha5/storage
     ports:
     - 7443:7443
     depends_on:
